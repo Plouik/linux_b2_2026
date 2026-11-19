@@ -1,0 +1,23 @@
+  #include <tunables/global>
+
+  /usr/sbin/nginx {
+    #include <abstractions/base>
+    #include <abstractions/nameservice>
+    #include <abstractions/openssl>
+
+    capability dac_override,
+    capability dac_read_search,
+    capability net_bind_service,
+    capability setgid,
+    capability setuid,
+
+    /etc/nginx/** r,
+    /var/log/nginx/** w,
+    /var/www/** r,
+    /run/nginx.pid rw,
+
+    network inet stream,
+    network inet6 stream,
+
+    deny /etc/shadow r,
+  }   
